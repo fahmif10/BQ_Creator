@@ -12,7 +12,7 @@
   --brand: #16325c;
   --brand-ink: #ffffff;
   --brand-hover: #10264a;
-  --accent: #b07d22;
+  --accent: #946a00;
   --accent-soft: #f6ecd6;
   --ok: #2f7a56;
   --ok-soft: #e3f1e8;
@@ -44,7 +44,7 @@
     --brand: #9dbcf0;
     --brand-ink: #0b1424;
     --brand-hover: #b7cff5;
-    --accent: #d9ab5c;
+    --accent: #e0a82e;
     --accent-soft: #2c2415;
     --ok: #7fcaa3;
     --ok-soft: #173026;
@@ -64,7 +64,7 @@
   --brand: #9dbcf0;
   --brand-ink: #0b1424;
   --brand-hover: #b7cff5;
-  --accent: #d9ab5c;
+  --accent: #e0a82e;
   --accent-soft: #2c2415;
   --ok: #7fcaa3;
   --ok-soft: #173026;
@@ -218,16 +218,9 @@ img { max-width: 100%; display: block; }
   margin-right: auto;
 }
 .brand-mark {
-  display: grid;
-  place-items: center;
-  height: 34px;
-  padding: 0 8px;
-  border-radius: 9px;
-  background: var(--brand);
-  color: var(--brand-ink);
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  width: 40px;
+  height: 40px;
+  flex: none;
 }
 .brand-name {
   display: flex;
