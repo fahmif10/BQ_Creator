@@ -6,7 +6,7 @@ company secretarial, accounting, audit and tax.
 Open `index.html` in a browser — no build step.
 
 ## Before launch
-- Replace the bracketed placeholder address, email and hours in `#contact`
+- Replace the bracketed placeholder email and hours in `#contact`
 - Wire the contact form (`[data-form]` in `main.js`) to email or a CRM — it is front-end only
 - Check the package contents and FAQ answers match what CCM actually offers
 
