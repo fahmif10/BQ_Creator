@@ -238,7 +238,7 @@ form?.addEventListener("submit", (e) => {
   const name = form.elements.name.value.trim().split(" ")[0];
   form.reset();
   form.querySelectorAll("[aria-invalid]").forEach((f) => f.removeAttribute("aria-invalid"));
-  toast(`Thanks, ${name}`, "We’ll get back to you within one working day.");
+  toast(`Thanks, ${name}`, "We’ll be in touch shortly.");
 });
 
 form?.addEventListener("input", (e) => {

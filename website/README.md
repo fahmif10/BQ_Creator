@@ -1,15 +1,15 @@
-# Laras Corporate Services — website
+# CCM Secretarial — website
 
-A static, one-page site for a Malaysian corporate services firm (company secretarial,
-accounting, audit and tax), modelled on the structure of ccmsecretarial.com.
+A static, one-page redesign of ccmsecretarial.com (Corporate Consultant & Management):
+company secretarial, accounting, audit and tax.
 
 Open `index.html` in a browser — no build step.
 
-## Before launch, replace the placeholders
-- Brand name and logo mark ("Laras", the `L` badge)
-- Office address, phone, email (`#contact`) and the WhatsApp number in `.chat-fab`
-- The three **Sample** testimonials in `#clients` with real, attributable client quotes
+## Before launch
+- Swap the `CCM` lettermark (`.brand-mark`) for the real logo file
+- Add office address and email in `#contact` (see the TODO comment)
 - Wire the contact form (`[data-form]` in `main.js`) to email or a CRM — it is front-end only
+- Check the package contents and FAQ answers match what CCM actually offers
 
 ## Motion
 Built with the `emil-design-eng` and `animate` skills: custom easing tokens in `:root`,

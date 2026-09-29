@@ -187,7 +187,6 @@ img { max-width: 100%; display: block; }
 }
 .pill-ok { background: var(--ok-soft); color: var(--ok); }
 .pill-accent { background: var(--accent-soft); color: var(--accent); }
-.pill-muted { background: var(--tint); color: var(--ink-3); border: 1px dashed var(--line); }
 
 /* ==========================================================================
    Header
@@ -221,13 +220,14 @@ img { max-width: 100%; display: block; }
 .brand-mark {
   display: grid;
   place-items: center;
-  width: 34px;
   height: 34px;
+  padding: 0 8px;
   border-radius: 9px;
   background: var(--brand);
   color: var(--brand-ink);
-  font-family: var(--font-serif);
-  font-size: 1.15rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
 }
 .brand-name {
   display: flex;
@@ -758,12 +758,14 @@ img { max-width: 100%; display: block; }
   border-radius: var(--radius);
   padding: 28px;
 }
-.quote .pill { align-self: flex-start; }
 .quote blockquote { margin: 0; }
-.quote blockquote p {
+.quote blockquote { display: grid; gap: 12px; }
+.quote blockquote p { font-size: 0.93rem; color: var(--ink-2); }
+.quote blockquote .quote-lead {
   font-family: var(--font-serif);
-  font-size: 1.1rem;
-  line-height: 1.5;
+  font-size: 1.2rem;
+  line-height: 1.4;
+  color: var(--ink);
 }
 .quote figcaption {
   margin-top: auto;
