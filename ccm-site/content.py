@@ -500,3 +500,236 @@ TRUST = {
 
 # Every page that should appear in sitemap.xml and in build order
 ALL_PAGES = PAGES
+
+
+# ============================================================ MORE GUIDES
+def _g(path, short, tag, title, desc, h1, lead, excerpt, body, faqs=None):
+    GUIDES.append({"path": "guides/%s/" % path, "short": short, "tag": tag, "published": "2026-09-30",
+                   "updated_human": "30 September 2026", "title": title, "desc": desc, "h1": h1, "lead": lead,
+                   "excerpt": excerpt, "body": body, "faqs": faqs or []})
+
+
+_g("ssm-annual-return-late-filing-malaysia", "Late SSM annual return", "SSM filings",
+   "Late SSM Annual Return in Malaysia: What to Do Next",
+   "Missed your SSM annual return deadline? Learn what late filing means for a Sdn Bhd, how to regularise it and how to avoid it next year.",
+   "Late SSM annual return in Malaysia: what happens and how to fix it",
+   "Missing the annual return deadline is one of the most common compliance slips for Sdn Bhds. It is fixable — and cheaper the sooner you act.",
+   "What a late annual return means for your Sdn Bhd and the practical steps to regularise it.",
+   """
+<h2>What is the annual return, and when is it due?</h2>
+<p>Every Malaysian company must lodge an <strong>annual return</strong> with SSM. Under section 68 of the Companies Act 2016 it is due within <strong>30 days after the anniversary of the company’s incorporation</strong>. It confirms details such as your directors, shareholders, registered address and share capital.</p>
+<h2>What happens if you file late?</h2>
+<p>Failing to lodge on time is an offence under the Act. SSM can offer or impose a compound, and the exposure can extend to the company and its officers. The longer a return stays overdue, the more returns can pile up — and other filings, such as changes of directors, become harder to process.</p>
+<div class="callout"><strong>Important:</strong> compound amounts and SSM’s procedures change from time to time. We confirm the current position for your company before you pay or file anything.</div>
+<h2>How to regularise an overdue annual return</h2>
+<ol>
+<li><strong>List what is outstanding</strong> — how many annual returns are missing, and whether financial statements are also overdue.</li>
+<li><strong>Get your records in order</strong> — confirm current directors, shareholders and registered address, and collect any records from a previous company secretary.</li>
+<li><strong>Lodge the returns</strong> — your company secretary prepares and submits each missing annual return.</li>
+<li><strong>Deal with any compound</strong> — settle it, or ask your secretary to advise if you believe it is wrong.</li>
+<li><strong>Put a reminder system in place</strong> so the next anniversary does not catch you out.</li>
+</ol>
+<h2>How to avoid it next year</h2>
+<ul>
+<li>Diarise 30 days after your incorporation anniversary — not your financial year end; they are different dates.</li>
+<li>Use a company secretary that tracks the date for you. See our <a href="../../services/company-secretary/">company secretary services</a>.</li>
+<li>Keep the rest of the calendar under control with our <a href="../sdn-bhd-compliance-calendar-malaysia/">Sdn Bhd compliance calendar</a>.</li>
+</ul>
+<p>If several filings are overdue or your current secretary is not responding, see <a href="../../services/switch-company-secretary/">how switching company secretary works</a>.</p>
+""",
+   [("Is the annual return the same as the audited accounts?", "No. The annual return confirms company particulars and is due 30 days after the incorporation anniversary. Audited financial statements follow a different timeline linked to your financial year end."),
+    ("Can I file a late annual return myself?", "You can lodge through SSM’s MyCoID system, but the return must be submitted through a licensed company secretary or another authorised person in many cases. Ask us to confirm what applies to your company.")])
+
+_g("change-directors-ssm-malaysia", "Change of directors", "Company secretarial",
+   "How to Change Directors in a Sdn Bhd (SSM Malaysia)",
+   "Steps, documents and deadlines to appoint or remove a director of a Sdn Bhd in Malaysia, including residency rules and SSM lodgement.",
+   "How to change directors in a Sdn Bhd in Malaysia",
+   "Appointing or removing a director is routine, but it has to be done properly — and lodged with SSM on time.",
+   "Steps, deadlines and residency rules for appointing or removing a director.",
+   """
+<h2>Director rules to know first</h2>
+<ul>
+<li>A Sdn Bhd must have <strong>at least one director who ordinarily resides in Malaysia</strong>.</li>
+<li>A director must be a natural person aged 18 or above and not disqualified under the Companies Act 2016.</li>
+<li>The person must consent to act as director, and the company’s constitution governs how directors are appointed and removed.</li>
+</ul>
+<h2>Appointing a new director</h2>
+<ol>
+<li><strong>Get the new director’s details</strong> — full name, identity document, nationality, residential address and a signed consent to act.</li>
+<li><strong>Pass the board or members’ resolution</strong> as required by your constitution.</li>
+<li><strong>Update the statutory registers</strong> of directors kept at your registered office.</li>
+<li><strong>Lodge the notification with SSM</strong> within the statutory period — generally 14 days from the change.</li>
+<li><strong>Update third parties</strong> — your bank, LHDN and other regulators, where relevant.</li>
+</ol>
+<h2>Removing or resigning as a director</h2>
+<p>A director can resign by notice to the company, or be removed by the members in line with the Act and your constitution. Either way, the register must be updated and the change lodged with SSM. If the resigning director is the only Malaysian-resident director, a replacement has to be appointed so the residency requirement is still met.</p>
+<div class="callout"><strong>Common mistake:</strong> updating the bank’s mandate but forgetting SSM, leaving the public record out of date. A late notification can lead to a compound.</div>
+<h2>Need it handled?</h2>
+<p>Our <a href="../../services/company-secretary/">company secretary service</a> prepares the resolutions and forms, updates your registers and lodges with SSM. Changes to share capital or shareholders? We handle those too. Related: <a href="../company-secretary-requirements-malaysia/">company secretary requirements</a>.</p>
+""",
+   [("How long do I have to notify SSM of a change of directors?", "Generally within 14 days of the change. We confirm the exact requirement for your situation."),
+    ("Can a foreigner be a director of a Sdn Bhd?", "Yes, but at least one director must ordinarily reside in Malaysia. Sector-specific rules may also apply.")])
+
+_g("e-invoice-myinvois-sme-malaysia", "e-Invoice (MyInvois) for SMEs", "Accounting & tax",
+   "e-Invoice (MyInvois) Malaysia: SME Readiness Guide",
+   "What LHDN’s MyInvois e-Invoice means for Malaysian SMEs: who must comply, the turnover-based phases and how to get ready.",
+   "e-Invoice (MyInvois) in Malaysia: what SME owners need to do",
+   "LHDN’s e-Invoice system is being rolled out by business size. Here is how to check where your business stands and prepare without the panic.",
+   "Who must issue e-Invoices, how the phased rollout works and how to prepare.",
+   """
+<h2>What is e-Invoicing in Malaysia?</h2>
+<p>The Inland Revenue Board (LHDN) requires businesses to issue invoices in a prescribed electronic format and submit them for validation through its <strong>MyInvois</strong> system, either through the MyInvois Portal or via an API connected to your accounting software.</p>
+<h2>Who must comply, and when?</h2>
+<p>The rollout was phased by annual turnover or revenue. The timeline LHDN announced is:</p>
+""" + tbl(["Annual turnover / revenue", "Start date"], [
+        ["More than RM100 million", "1 August 2024"],
+        ["RM25 million to RM100 million", "1 January 2025"],
+        ["RM5 million to RM25 million", "1 July 2025"],
+        ["RM1 million to RM5 million", "1 January 2026"],
+        ["RM1 million or below", "Exempt, at the time of writing"]]) + """
+<div class="callout"><strong>Check the latest rules.</strong> LHDN has added relaxation periods, exemptions and guideline updates along the way. Confirm your business’s current obligation with LHDN’s latest guidelines or with us before you decide you are exempt.</div>
+<h2>How SMEs should prepare</h2>
+<ol>
+<li><strong>Confirm your phase</strong> using your turnover for the relevant financial year.</li>
+<li><strong>Get your Tax Identification Number (TIN)</strong> and those of your key customers and suppliers in order — accurate buyer details are required on e-Invoices.</li>
+<li><strong>Choose how you will submit</strong> — the free MyInvois Portal suits low volumes; accounting software with MyInvois integration suits higher volumes.</li>
+<li><strong>Clean up your master data</strong> — customer names, addresses, TINs and classification codes.</li>
+<li><strong>Train whoever issues invoices</strong> and decide how credit notes and corrections will be handled.</li>
+</ol>
+<h2>Why accounting records matter more now</h2>
+<p>Because e-Invoices are validated by LHDN, your sales records are effectively visible to the tax authority in real time. Keeping monthly books that agree with your submitted invoices makes Form C and any LHDN review far smoother. See our <a href="../../services/accounting-bookkeeping/">accounting and bookkeeping service</a> and <a href="../../services/tax-agent/">tax agent service</a>.</p>
+""",
+   [("Does my small business need to issue e-Invoices?", "It depends on your annual turnover and LHDN’s current rules. Businesses at or below the exemption threshold are not required at the time of writing, but may choose to adopt e-Invoicing voluntarily."),
+    ("Can I use the free MyInvois Portal instead of software?", "Yes. LHDN offers a web portal for issuing and validating e-Invoices, which suits low invoice volumes. Higher volumes are usually better served by integrated accounting software.")])
+
+_g("sdn-bhd-vs-sole-proprietorship-malaysia", "Sdn Bhd vs sole proprietorship", "Starting a business",
+   "Sdn Bhd vs Sole Proprietorship in Malaysia: Which to Choose",
+   "Compare Sdn Bhd and sole proprietorship in Malaysia: liability, tax, compliance cost, credibility and when to convert. Guide for SME founders.",
+   "Sdn Bhd vs sole proprietorship in Malaysia: which should you choose?",
+   "The right structure depends on risk, growth plans and how much compliance you are willing to take on. Here is a practical comparison.",
+   "Liability, tax, compliance and credibility compared, plus when to convert.",
+   """
+<h2>The short answer</h2>
+<p>A <strong>sole proprietorship</strong> is quick and inexpensive to set up and suits small, low-risk businesses run by one person. A <strong>Sdn Bhd</strong> (private limited company) is a separate legal entity, limits your personal liability, and is usually the better base for growth, contracts, tenders and outside investment.</p>
+<h2>Side-by-side comparison</h2>
+""" + tbl(["", "Sole proprietorship", "Sdn Bhd"], [
+        ["Legal status", "Same legal person as the owner", "Separate legal entity"],
+        ["Liability", "Owner personally liable for business debts", "Shareholders’ liability generally limited to share capital"],
+        ["Registration", "With SSM under the Registration of Businesses Act 1956", "With SSM under the Companies Act 2016"],
+        ["Company secretary", "Not required", "Required within 30 days of incorporation"],
+        ["Audit", "Not required", "Required unless exempt"],
+        ["Income tax", "Business profit taxed as the owner’s personal income", "Company taxed at corporate rates; directors taxed on their own remuneration and dividends as applicable"],
+        ["Ongoing filings", "Business renewal; personal tax return", "Annual return, financial statements, Form C, CP204 and more"],
+        ["Credibility", "Fine for small jobs", "Often preferred by banks, corporate clients and for tenders"]]) + """
+<h2>When to choose a Sdn Bhd</h2>
+<ul>
+<li>You sign contracts with meaningful financial risk.</li>
+<li>You bid for tenders or supply large companies that require a company.</li>
+<li>You plan to bring in partners, investors or employees with share options.</li>
+<li>You want to separate personal assets from business risk.</li>
+</ul>
+<h2>When a sole proprietorship can be enough</h2>
+<p>If you are a freelancer or run a low-risk, small-scale business with few employees, the lower compliance cost of a sole proprietorship can make sense — at least while you are starting out.</p>
+<h2>Can I convert later?</h2>
+<p>Yes. Many founders start as sole proprietors and incorporate a Sdn Bhd as the business grows. The transfer of assets, contracts, licences and tax positions needs planning, so speak to us before you convert.</p>
+<p>Ready to set up? See <a href="../../services/sdn-bhd-registration/">how we register a Sdn Bhd</a>, or compare the ongoing duties in our <a href="../sdn-bhd-compliance-calendar-malaysia/">compliance calendar</a>.</p>
+""",
+   [("Is a Sdn Bhd more expensive to run than a sole proprietorship?", "Yes. The company secretary, annual return, audit (unless exempt) and corporate tax filings add ongoing cost. The trade-off is limited liability and greater credibility."),
+    ("Can a sole proprietor get a business loan?", "Yes, but banks often prefer the financial records and structure of a Sdn Bhd for larger facilities.")])
+
+_g("dormant-company-requirements-malaysia", "Dormant company requirements", "Compliance",
+   "Dormant Company in Malaysia: Filing Requirements Explained",
+   "Does a dormant Sdn Bhd still have to file annual returns, tax and accounts in Malaysia? What it must do, and whether to keep or strike it off.",
+   "Dormant company in Malaysia: what you still have to file",
+   "A company that is not trading is not free of obligations. Here is what a dormant Sdn Bhd must still do — and the alternative of closing it.",
+   "What a non-trading Sdn Bhd must still file, and when to consider striking off.",
+   """
+<h2>What counts as a dormant company?</h2>
+<p>Broadly, a company is dormant when it is not carrying on business and has no significant accounting transactions in the period. Being dormant does not remove the company from SSM’s or LHDN’s records.</p>
+<h2>What a dormant company must still do</h2>
+<ul>
+<li><strong>Keep a company secretary</strong> and a registered office address.</li>
+<li><strong>Lodge the annual return</strong> with SSM each year, within 30 days of the incorporation anniversary.</li>
+<li><strong>Prepare financial statements.</strong> Dormant companies may be exempt from audit, but directors must still approve accounts in the required form.</li>
+<li><strong>Submit Form C</strong> to LHDN within seven months of year end, even with no income.</li>
+<li><strong>Maintain statutory registers</strong> and report changes in directors or address.</li>
+</ul>
+<div class="callout"><strong>Watch the exemption conditions.</strong> Audit exemption for a dormant company depends on the company actually being dormant. If a transaction or new business activity occurs, the position can change. See <a href="../do-sdn-bhd-need-audit-malaysia/">Does my Sdn Bhd need an audit?</a></div>
+<h2>Keep it, or close it?</h2>
+<p>If the company will trade again, keeping it dormant may be cheaper than forming a new one — provided you keep the filings current. If it will not, consider <strong>striking off</strong> or winding up the company, so the annual obligations stop. A company with debts, assets or disputes needs advice before closing.</p>
+<h2>Already behind?</h2>
+<p>Many dormant companies fall behind because nobody is watching the dates. We can regularise overdue returns and tax filings and then keep the company compliant at minimal cost. See <a href="../../services/switch-company-secretary/">switching company secretary</a> and our <a href="../../services/company-secretary/">company secretary services</a>.</p>
+""",
+   [("Does a dormant company need to file tax returns?", "Yes. A company must submit its return to LHDN even when it has no income."),
+    ("Can a dormant company be audit exempt?", "Potentially, if it meets the dormant-company conditions under the Companies Act 2016. Check before assuming.")])
+
+_g("epf-socso-eis-employer-registration-malaysia", "EPF, SOCSO & EIS for employers", "Payroll",
+   "EPF, SOCSO & EIS for New Employers in Malaysia: Guide",
+   "How to register as an employer with KWSP (EPF) and PERKESO (SOCSO and EIS), and what monthly contributions and filings to expect.",
+   "EPF, SOCSO and EIS: employer registration and monthly duties in Malaysia",
+   "Hiring your first employee? Here is how employer registration with KWSP and PERKESO works and what you must do every month.",
+   "Employer registration, monthly contributions and common payroll mistakes.",
+   """
+<h2>Three statutory contributions, two agencies</h2>
+<ul>
+<li><strong>EPF (KWSP)</strong> — the Employees Provident Fund, a retirement savings scheme funded by employer and employee contributions.</li>
+<li><strong>SOCSO (PERKESO)</strong> — social security covering employment injury and invalidity.</li>
+<li><strong>EIS (PERKESO)</strong> — the Employment Insurance System, which provides support if an employee loses their job.</li>
+</ul>
+<h2>Registering as an employer</h2>
+<ol>
+<li><strong>Register the company as an employer</strong> with KWSP and with PERKESO for both SOCSO and EIS, usually online.</li>
+<li><strong>Collect employee details</strong> — identity numbers, date of birth, wages and bank information.</li>
+<li><strong>Register each employee</strong> under the relevant schemes.</li>
+<li><strong>Set up payroll</strong> to compute contributions and monthly tax deductions (PCB).</li>
+</ol>
+<h2>Every month</h2>
+<ul>
+<li>Calculate employer and employee shares of EPF, SOCSO and EIS using the current contribution tables. Rates depend on wage bands and employee category, so always check the latest schedules.</li>
+<li>Submit the contribution files and pay by the statutory due date — generally by the 15th of the following month.</li>
+<li>Remit PCB (monthly tax deductions) to LHDN for employees liable to tax.</li>
+<li>Issue payslips and keep payroll records.</li>
+</ul>
+<div class="callout"><strong>Common mistakes:</strong> missing a new hire, applying an outdated contribution table, paying after the due date, or treating a worker as a contractor when the law treats them as an employee.</div>
+<h2>Annual payroll filings</h2>
+<p>After year end, employers also issue EA forms to employees and file the employer return with LHDN. Clean monthly payroll makes this routine.</p>
+<p>Don’t want to manage it yourself? Our <a href="../../services/accounting-bookkeeping/">accounting and payroll service</a> runs payroll and handles the EPF, SOCSO, EIS and PCB submissions every month. Also see the <a href="../sdn-bhd-compliance-calendar-malaysia/">compliance calendar</a>.</p>
+""",
+   [("Do I have to register for EPF and SOCSO if I only have one employee?", "Generally yes. Once you employ staff, you are expected to register as an employer and contribute for eligible employees. Check the current coverage rules for your workers."),
+    ("What are the current EPF contribution rates?", "They depend on the employee’s age, wage and category, and they are updated from time to time. We apply the current KWSP schedule in your payroll.")])
+
+# ============================================================ PRIVACY POLICY
+PRIVACY_UPDATED = "30 September 2026"
+PRIVACY_HTML = """
+<p>CCM Secretarial (Corporate Consultant &amp; Management) (“<strong>CCM</strong>”, “we”, “us”) respects your privacy. This policy explains how we collect, use and protect personal data when you visit this website or contact us, in line with Malaysia’s Personal Data Protection Act 2010 (“PDPA”).</p>
+<h2>1. Who we are</h2>
+<p>CCM Secretarial, 1, Jalan Elmina Ilham 18, Seksyen U16, Elmina, Shah Alam, Selangor, Malaysia. Phone: 016-477 9365. Email: <a href="mailto:corpsec@ccmsecretarial.com">corpsec@ccmsecretarial.com</a>.</p>
+<h2>2. Personal data we collect</h2>
+<ul>
+<li><strong>Information you give us</strong> — your name, phone number, email address, company name, the services you are interested in and any message you send through our enquiry form, WhatsApp, email or phone.</li>
+<li><strong>Information needed for our services</strong> — if you become a client, we also collect identity, company and financial information required to provide company secretarial, accounting, audit and tax services.</li>
+<li><strong>Technical information</strong> — basic technical data such as browser type and pages visited, if analytics tools are enabled on this website.</li>
+</ul>
+<h2>3. How we use your data</h2>
+<ul>
+<li>To respond to your enquiry and give you a quote;</li>
+<li>To provide and administer our services and meet our professional and legal obligations, including filings with SSM and LHDN;</li>
+<li>To send reminders and compliance updates relevant to your company;</li>
+<li>To improve our website and services.</li>
+</ul>
+<h2>4. Disclosure</h2>
+<p>We do not sell your personal data. We may disclose it to government and regulatory bodies (such as SSM and LHDN) where needed to provide our services, to service providers who help us run our business (for example messaging, email and IT providers) under confidentiality obligations, and where the law requires it.</p>
+<h2>5. WhatsApp and email</h2>
+<p>If you contact us through WhatsApp or email, your messages are handled on those platforms, which have their own privacy policies. Please avoid sending sensitive information, such as full identity numbers or bank details, until we have agreed a secure way to exchange documents.</p>
+<h2>6. Security and retention</h2>
+<p>We take reasonable steps to protect personal data from loss, misuse and unauthorised access. We keep data only as long as needed for the purposes above and to meet legal, tax and professional record-keeping requirements.</p>
+<h2>7. Your rights</h2>
+<p>Under the PDPA you may request access to, or correction of, your personal data, and you may withdraw your consent to certain uses. To do so, email <a href="mailto:corpsec@ccmsecretarial.com">corpsec@ccmsecretarial.com</a>. We may need to verify your identity first.</p>
+<h2>8. Cookies and analytics</h2>
+<p>This website does not currently use advertising cookies. If we add analytics in future, we will update this policy and, where required, ask for your consent.</p>
+<h2>9. Changes to this policy</h2>
+<p>We may update this policy from time to time. The date at the top shows when it was last revised.</p>
+<h2>10. Contact</h2>
+<p>Questions about this policy? Email <a href="mailto:corpsec@ccmsecretarial.com">corpsec@ccmsecretarial.com</a> or call 016-477 9365.</p>
+<p class="meta">This policy is a general statement and should be reviewed by CCM’s legal adviser before publication.</p>
+"""

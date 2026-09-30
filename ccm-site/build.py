@@ -6,7 +6,7 @@ Change SITE below to the live domain before deploying: it feeds canonical
 URLs, Open Graph tags, JSON-LD and sitemap.xml.
 """
 import html, json, os, shutil, datetime
-from content import (TRUST, SERVICES, PERSONAS, QUIZ, QUOTES, HOME_FAQS, PAGES, GUIDES, BUSINESS)
+from content import (PRIVACY_HTML, PRIVACY_UPDATED, TRUST, SERVICES, PERSONAS, QUIZ, QUOTES, HOME_FAQS, PAGES, GUIDES, BUSINESS)
 
 SITE = "https://www.ccmsecretarial.com"
 TODAY = datetime.date.today().isoformat()
@@ -111,20 +111,21 @@ def header(c):
 <a href="{c.u("#faq") if c.path == "" else c.u("#faq")}">FAQ</a>
 <a href="{c.u("#contact")}" class="nav-cta">Talk to us</a>
 </nav>
-<a class="btn header-cta" href="{c.u("#contact")}">Talk to us</a>
+<a class="btn btn-ghost header-cta" href="{wa()}" rel="noopener">{WA_SVG.replace('width="22" height="22"', 'width="18" height="18"')} WhatsApp</a>
+<a class="btn header-cta" href="{c.u("#contact")}">Free consultation</a>
 </div></header>'''
 
 
 def footer(c):
     svc = "".join('<li><a href="%s">%s</a></li>' % (c.u(p), esc(n)) for n, p in NAV)
-    gd = "".join('<li><a href="%s">%s</a></li>' % (c.u(g["path"]), esc(g["short"])) for g in GUIDES)
+    gd = "".join('<li><a href="%s">%s</a></li>' % (c.u(g["path"]), esc(g["short"])) for g in GUIDES[:4])
     return f'''<footer class="site-footer"><div class="wrap">
 <div class="foot-grid">
 <div><a class="brand" href="{c.u("")}"><img src="{c.u("assets/logo.png")}" alt="" width="36" height="36" loading="lazy"><b>{esc(B["name"])}<small>{esc(B["legal"])}</small></b></a>
 <address style="margin-top:16px">{esc(B["street"])}<br>{esc(B["locality"])}<br><a href="tel:{B["tel"]}">{esc(B["tel_display"])}</a><br><a href="mailto:{B["email"]}">{esc(B["email"])}</a></address></div>
 <div><h2>Services</h2><ul>{svc}</ul></div>
 <div><h2>Guides</h2><ul>{gd}<li><a href="{c.u("guides/")}">All guides</a></li></ul></div>
-<div><h2>Company</h2><ul><li><a href="{c.u("#contact")}">Free consultation</a></li><li><a href="{c.u("#faq")}">FAQ</a></li><li><a href="{wa()}" rel="noopener">WhatsApp</a></li></ul></div>
+<div><h2>Company</h2><ul><li><a href="{c.u("#contact")}">Free consultation</a></li><li><a href="{c.u("#faq")}">FAQ</a></li><li><a href="{wa()}" rel="noopener">WhatsApp</a></li><li><a href="{c.u("privacy-policy/")}">Privacy policy</a></li></ul></div>
 </div>
 <p class="legal">© {datetime.date.today().year} {esc(B["name"])} ({esc(B["legal"])}), Shah Alam, Selangor, Malaysia. General information only, not legal or tax advice.</p>
 </div></footer>
@@ -224,6 +225,7 @@ def contact_section(c, heading="Tell us where you are. We’ll tell you what you
 <button type="button" class="btn" id="f-next">Continue</button></div>
 <noscript><div class="form-nav"><button type="submit" class="btn">Send enquiry by email</button></div></noscript>
 <p class="form-foot">Prefer to chat? <a href="{wa()}" rel="noopener">WhatsApp us directly</a>.</p>
+<p class="form-foot" style="margin-top:6px">We use your details only to reply to your enquiry. See our <a href="{c.u("privacy-policy/")}">privacy policy</a>.</p>
 </form>
 <div class="form thanks" id="thanks" hidden>
 <div class="tick"><b>✓</b></div>
@@ -291,7 +293,8 @@ def build_home():
 <p class="pill"><i></i>For Malaysian SMEs · Based in Shah Alam, Selangor</p>
 <h1 class="h1">Company secretary &amp; accounting for Malaysian SMEs — <em class="accent">compliant</em>, on time.</h1>
 <p class="lead">You run the business; we keep it compliant. Company secretarial, accounting, audit and tax under one roof — one named team watching every SSM and LHDN deadline, so nothing sneaks up on you.</p>
-<div class="cta-row"><a class="btn btn-lg" href="#contact">Get a free consultation</a><a class="btn btn-lg btn-ghost" href="#health">Take the 60-second health check →</a></div>
+<div class="cta-row"><a class="btn btn-lg" href="#contact">Get a free consultation</a><a class="btn btn-lg btn-ghost" href="{wa("Hi CCM, I’d like a free consultation for my company.")}" rel="noopener">{WA_SVG.replace('width="22" height="22"', 'width="18" height="18"')} Chat on WhatsApp</a></div>
+<p class="hint">Not sure where you stand? <a href="#health">Take the 60-second compliance health check →</a></p>
 <ul class="ticks"><li>Fixed fees, agreed upfront</li><li>One team for SSM &amp; LHDN</li><li>A named contact, not a queue</li></ul>
 </div>
 {planner}
@@ -349,8 +352,8 @@ def build_home():
     clients = f'''<section id="clients" class="alt-bg"><div class="wrap"><div class="sec-head"><p class="eyebrow">Clients</p><h2 class="h2">Malaysian business owners like you, in their own words.</h2></div>
 <div class="quotes">{quotes}</div></div></section>'''
 
-    guides = "".join(f'''<a class="post" href="{g["path"]}"><span class="tag">{esc(g["tag"])}</span><h3>{esc(g["h1"])}</h3><p>{esc(g["excerpt"])}</p><span class="more">Read the guide</span></a>''' for g in GUIDES)
-    guide_sec = f'''<section><div class="wrap"><div class="sec-head"><p class="eyebrow">Guides for SME owners</p><h2 class="h2">Plain-English answers on Malaysian compliance.</h2></div><div class="cards-3">{guides}</div></div></section>'''
+    guides = "".join(f'''<a class="post" href="{g["path"]}"><span class="tag">{esc(g["tag"])}</span><h3>{esc(g["h1"])}</h3><p>{esc(g["excerpt"])}</p><span class="more">Read the guide</span></a>''' for g in GUIDES[:3])
+    guide_sec = f'''<section><div class="wrap"><div class="sec-head"><p class="eyebrow">Guides for SME owners</p><h2 class="h2">Plain-English answers on Malaysian compliance.</h2></div><div class="cards-3">{guides}</div><p style="margin-top:24px"><a href="guides/">See all {len(GUIDES)} guides →</a></p></div></section>'''
 
     faq = f'''<section id="faq"><div class="wrap faq-wrap"><div><p class="eyebrow">FAQ</p><h2 class="h2">Common questions</h2>
 <p class="muted" style="margin-top:14px;font-size:1.05rem">Can’t find your answer? <a href="{wa("Hi CCM, I have a question: ")}" rel="noopener">Ask us on WhatsApp.</a></p></div>
@@ -404,7 +407,7 @@ def build_service(pg):
 # ---------------------------------------------------------------- guides
 def build_guide(g):
     c = Ctx(g["path"])
-    others = [x for x in GUIDES if x["path"] != g["path"]]
+    others = [x for x in GUIDES if x["path"] != g["path"]][:4]
     rel = "".join('<li><a href="%s">%s</a></li>' % (c.u(x["path"]), esc(x["h1"])) for x in others)
     svc = "".join('<li><a href="%s">%s</a></li>' % (c.u(s["path"]), esc(s["title"])) for s in SERVICES)
     body = breadcrumbs(c, [("Home", ""), ("Guides", "guides/"), (g["short"], g["path"])]) + f'''
@@ -439,6 +442,17 @@ def build_guides_index():
     write("guides/", page(c, title, desc, body, lds))
 
 
+def build_privacy():
+    c = Ctx("privacy-policy/")
+    body = breadcrumbs(c, [("Home", ""), ("Privacy policy", "privacy-policy/")]) + f'''
+<section class="page-hero"><div class="wrap"><p class="eyebrow">Legal</p><h1 class="h1" style="font-size:clamp(2rem,4vw,3rem)">Privacy policy</h1>
+<p class="meta">Last updated {PRIVACY_UPDATED}</p></div></section>
+<section style="padding-top:0"><div class="wrap"><article class="prose">{PRIVACY_HTML}</article></div></section>'''
+    title = "Privacy Policy | CCM Secretarial"
+    desc = "How CCM Secretarial collects, uses and protects personal data under Malaysia’s Personal Data Protection Act 2010."
+    write("privacy-policy/", page(c, title, desc, body, [crumbs_ld([("Home", ""), ("Privacy policy", "privacy-policy/")])]))
+
+
 def build_404():
     c = Ctx("", absolute=True)
     body = f'''<section class="page-hero"><div class="wrap" style="max-width:720px"><p class="eyebrow">404</p><h1 class="h1" style="font-size:clamp(2rem,4vw,3rem)">That page isn’t here</h1>
@@ -448,7 +462,7 @@ def build_404():
 
 
 def build_static():
-    urls = [("", "1.0", "weekly")] + [(s["path"], "0.9", "monthly") for s in PAGES] + [("guides/", "0.7", "weekly")] + [(g["path"], "0.7", "monthly") for g in GUIDES]
+    urls = [("", "1.0", "weekly")] + [(s["path"], "0.9", "monthly") for s in PAGES] + [("guides/", "0.7", "weekly")] + [(g["path"], "0.7", "monthly") for g in GUIDES] + [("privacy-policy/", "0.2", "yearly")]
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
         f"  <url><loc>{SITE}/{p}</loc><lastmod>{TODAY}</lastmod><changefreq>{cf}</changefreq><priority>{pr}</priority></url>\n" for p, pr, cf in urls) + "</urlset>\n"
     open(os.path.join(OUT, "sitemap.xml"), "w").write(sm)
@@ -498,5 +512,6 @@ if __name__ == "__main__":
     for g in GUIDES:
         build_guide(g)
     build_guides_index()
+    build_privacy()
     build_404()
     print("Built", sum(len(f) for _, _, f in os.walk(OUT)), "files into", OUT)
