@@ -485,5 +485,18 @@ GUIDES.append({
 """,
 })
 
+# ============================================================ TRUST SIGNALS
+# Fill these in with REAL, verifiable details. Anything left empty is simply not shown on the site.
+TRUST = {
+    # Shown as badges, e.g. ("SSM licensed company secretary", "Licence no. CS 0000000")
+    "credentials": [],
+    # Professional bodies, e.g. "Malaysian Institute of Accountants (MIA)", "MAICSA", "CTIM"
+    "memberships": [],
+    # Headline numbers, e.g. ("250+", "companies served"), ("10 yrs", "in practice")
+    "stats": [],
+    # Client logos: list of (client name, "assets/clients/file.svg"). Only use with client permission.
+    "clients": [],
+}
+
 # Every page that should appear in sitemap.xml and in build order
 ALL_PAGES = PAGES

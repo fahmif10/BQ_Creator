@@ -6,7 +6,7 @@ Change SITE below to the live domain before deploying: it feeds canonical
 URLs, Open Graph tags, JSON-LD and sitemap.xml.
 """
 import html, json, os, shutil, datetime
-from content import (SERVICES, PERSONAS, QUIZ, QUOTES, HOME_FAQS, PAGES, GUIDES, BUSINESS)
+from content import (TRUST, SERVICES, PERSONAS, QUIZ, QUOTES, HOME_FAQS, PAGES, GUIDES, BUSINESS)
 
 SITE = "https://www.ccmsecretarial.com"
 TODAY = datetime.date.today().isoformat()
@@ -54,6 +54,9 @@ def business_ld():
                                        "opens": "09:00", "closes": "18:00"}],
         "contactPoint": [{"@type": "ContactPoint", "contactType": "customer service", "telephone": B["tel"],
                           "email": B["email"], "areaServed": "MY", "availableLanguage": ["en", "ms"]}],
+        **({"memberOf": [{"@type": "Organization", "name": m} for m in TRUST["memberships"]]} if TRUST["memberships"] else {}),
+        **({"hasCredential": [{"@type": "EducationalOccupationalCredential", "name": n, "credentialCategory": "license",
+                               "identifier": v} for n, v in TRUST["credentials"]]} if TRUST["credentials"] else {}),
         "knowsAbout": ["Company secretarial services Malaysia", "SSM company registration", "Sdn Bhd annual return",
                        "Bookkeeping and accounting for SMEs", "Statutory audit Malaysia", "LHDN Form C tax filing"],
         "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Compliance services for Malaysian SMEs",
@@ -245,6 +248,26 @@ def write(path, content):
         f.write(content)
 
 
+def trust_block(c):
+    """Credentials, memberships, stats and client logos. Renders nothing until real data is supplied."""
+    t = TRUST
+    if not any(t.values()):
+        return ""
+    out = ['<section class="trust" aria-labelledby="trust-h" style="padding:clamp(40px,5vw,64px) 0"><div class="wrap">',
+           '<h2 id="trust-h" class="eyebrow" style="margin-bottom:20px">Licensed, registered and accountable</h2>']
+    if t["stats"]:
+        out.append('<ul class="stats">%s</ul>' % "".join('<li><b>%s</b><span>%s</span></li>' % (esc(n), esc(l)) for n, l in t["stats"]))
+    badges = ["<li><strong>%s</strong><span>%s</span></li>" % (esc(n), esc(v)) for n, v in t["credentials"]]
+    badges += ["<li><strong>%s</strong><span>Member</span></li>" % esc(m) for m in t["memberships"]]
+    if badges:
+        out.append('<ul class="creds">%s</ul>' % "".join(badges))
+    if t["clients"]:
+        out.append('<p class="muted" style="margin-top:28px;font-size:.9rem">Trusted by Malaysian business owners including</p><ul class="logos">%s</ul>' %
+                   "".join('<li><img src="%s" alt="%s" height="36" loading="lazy"></li>' % (c.u(p), esc(n)) for n, p in t["clients"]))
+    out.append("</div></section>")
+    return "".join(out)
+
+
 def cta_band(c, h="Want this taken care of?", p="Book a free consultation and get a fixed-fee quote — no obligation."):
     return f'''<section style="padding-top:0"><div class="wrap"><div class="cta-band"><div><h2>{esc(h)}</h2><p>{esc(p)}</p></div>
 <div class="cta-row" style="margin:0"><a class="btn btn-light btn-lg" href="{c.u("#contact")}">Get a free consultation</a><a class="btn btn-outline-d btn-lg" href="{wa()}" rel="noopener">WhatsApp us</a></div></div></div></section>'''
@@ -337,7 +360,7 @@ def build_home():
 <p class="muted" style="margin-top:12px">Our office is in Elmina, Shah Alam. Most SSM and LHDN work is done online, so we support Sdn Bhd, LLP and sole-proprietor clients throughout the Klang Valley and the rest of Malaysia — by phone, WhatsApp or in person.</p>
 <ul class="areas"><li>Shah Alam</li><li>Klang</li><li>Petaling Jaya</li><li>Subang Jaya</li><li>Puchong</li><li>Kuala Lumpur</li><li>Nationwide (online)</li></ul></div></div></section>'''
 
-    body = hero + paths + services + health + process + clients + guide_sec + faq + areas + contact_section(c)
+    body = hero + trust_block(c) + paths + services + health + process + clients + guide_sec + faq + areas + contact_section(c)
     title = "Company Secretary & Accounting Shah Alam | CCM Secretarial"
     desc = "Company secretary, SSM registration, bookkeeping, audit & LHDN tax for Malaysian SMEs. Fixed fees, one named team. Based in Shah Alam. Free consultation."
     lds = [business_ld(),
