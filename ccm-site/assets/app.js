@@ -2,8 +2,9 @@
 (function () {
   'use strict';
   var WA = '60164779365';
-  var SH = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  var FULL = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var L = JSON.parse(document.getElementById('i18n').textContent);
+  var SH = L.sh, FULL = L.full;
+  var fmt = function (t, o) { return t.replace(/\{(\w+)\}/g, function (m, k) { return o[k]; }); };
   var wa = function (t) { return 'https://wa.me/' + WA + '?text=' + encodeURIComponent(t); };
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
@@ -34,16 +35,16 @@
         var d = c.filter(function (x) { return x >= today; }).sort(function (a, b) { return a - b; })[0];
         if (d) out.push({ title: title, sub: sub, date: d });
       };
-      if (valid) pick('Annual return to SSM', 'Within 30 days of incorporation anniversary · s.68',
+      if (valid) pick(L.t_ar, L.s_ar,
         [Y - 1, Y, Y + 1, Y + 2].filter(function (y) { return y > incD.getFullYear(); })
           .map(function (y) { return add(new Date(y, incD.getMonth(), incD.getDate()), 30); }));
       var fyes = [Y - 2, Y - 1, Y, Y + 1, Y + 2].map(function (y) { return new Date(y, f + 1, 0); })
         .filter(function (d) { return !valid || d > incD; });
       var eom = function (d, m) { return new Date(d.getFullYear(), d.getMonth() + m, 0); };
-      pick('Circulate audited accounts', 'Within 6 months of year end · s.258', fyes.map(function (d) { return eom(d, 7); }));
-      pick('Lodge accounts with SSM', 'Within 30 days of circulation · s.259', fyes.map(function (d) { return add(eom(d, 7), 30); }));
-      pick('Form C to LHDN', 'Within 7 months of year end', fyes.map(function (d) { return eom(d, 8); }));
-      pick('CP204 tax estimate', '30 days before your new basis period', fyes.map(function (d) { return add(d, -29); }));
+      pick(L.t_circ, L.s_circ, fyes.map(function (d) { return eom(d, 7); }));
+      pick(L.t_lodge, L.s_lodge, fyes.map(function (d) { return add(eom(d, 7), 30); }));
+      pick(L.t_c, L.s_c, fyes.map(function (d) { return eom(d, 8); }));
+      pick(L.t_cp, L.s_cp, fyes.map(function (d) { return add(d, -29); }));
       out.sort(function (a, b) { return a.date - b.date; });
       out = out.slice(0, 4).map(function (o) {
         o.days = Math.round((o.date - today) / DAY);
@@ -59,13 +60,13 @@
         $('strong', li).textContent = o.title;
         $('small', li).textContent = o.sub;
         var c = $('.chip', li);
-        c.textContent = o.days === 0 ? 'Today' : o.days + (o.days === 1 ? ' day' : ' days');
+        c.textContent = o.days === 0 ? L.chip_today : o.days + ' ' + (o.days === 1 ? L.days : L.days_pl);
         if (o.days <= 60) c.className = 'chip urgent';
         list.appendChild(li);
       });
       var n = out[0];
-      days.textContent = n ? (n.days === 0 ? 'today' : n.days + (n.days === 1 ? ' day' : ' days')) : '—';
-      remind.href = wa('Hi CCM, I used your deadline planner (incorporated ' + inc.value + ', year end ' + FULL[f] + '). Could you remind me before these are due?\n' +
+      days.textContent = n ? (n.days === 0 ? L.today : n.days + ' ' + (n.days === 1 ? L.days : L.days_pl)) : L.none;
+      remind.href = wa(fmt(L.remind, { inc: inc.value, fye: FULL[f] }) + '\n' +
         out.map(function (d) { return '• ' + d.title + ' – ' + d.full; }).join('\n'));
     };
     inc.addEventListener('change', render);
@@ -99,7 +100,7 @@
         var needs = a.getAttribute('data-needs').split('|'), stage = a.getAttribute('data-stage');
         $$('input[name=need]', form).forEach(function (i) { i.checked = needs.indexOf(i.value) > -1; });
         $$('input[name=stage]', form).forEach(function (i) { i.checked = i.value === stage; });
-        form.elements.msg.value = 'Interested in the ' + a.getAttribute('data-quote-persona') + ' package.';
+        form.elements.msg.value = fmt(L.w_pkg, { plan: a.getAttribute('data-quote-persona') });
         form.dispatchEvent(new CustomEvent('reset-step'));
       });
     });
@@ -119,12 +120,10 @@
       runEl.hidden = done; doneEl.hidden = !done;
       bar.style.width = (qi / QUIZ.length * 100) + '%';
       back.hidden = qi === 0 || done;
-      if (!done) { qs.textContent = QUIZ[qi].q; qn.textContent = 'Question ' + (qi + 1) + ' of ' + QUIZ.length; return; }
+      if (!done) { qs.textContent = QUIZ[qi].q; qn.textContent = fmt(L.quiz_q, { n: qi + 1, t: QUIZ.length }); return; }
       var score = ans.filter(function (a) { return a === 'yes'; }).length;
       var gaps = QUIZ.filter(function (q, i) { return ans[i] && ans[i] !== 'yes'; }).map(function (q) { return q.fix; });
-      var r = score === 5 ? ['Looking healthy', 'You’re on top of the essentials. We can keep it that way — and take the admin off your desk.']
-        : score >= 3 ? ['A few gaps to close', 'Nothing dramatic yet, but these are the items that turn into compounds if left.']
-        : ['Worth a closer look', 'Several items could expose the company and its directors to penalties. Let’s sort it out together.'];
+      var r = score === 5 ? [L.r_healthy, L.r_healthy_m] : score >= 3 ? [L.r_gaps, L.r_gaps_m] : [L.r_look, L.r_look_m];
       $('#quiz-score').textContent = score + '/5';
       var ring = $('#quiz-ring');
       ring.style.setProperty('--deg', (score / 5 * 360) + 'deg');
@@ -133,8 +132,8 @@
       var g = $('#quiz-gaps'); g.hidden = !gaps.length;
       var ul = $('ul', g); ul.innerHTML = '';
       gaps.forEach(function (t) { var li = document.createElement('li'); li.textContent = t; ul.appendChild(li); });
-      $('#quiz-wa').href = wa('Hi CCM, I did the compliance health check on your website and scored ' + score + '/5.' +
-        (gaps.length ? ' I’d like help with:\n' + gaps.map(function (x) { return '• ' + x; }).join('\n') : ' I’d like to talk about handing compliance over.'));
+      $('#quiz-wa').href = wa(fmt(L.quiz_wa, { s: score }) +
+        (gaps.length ? L.quiz_help + gaps.map(function (x) { return '• ' + x; }).join('\n') : L.quiz_talk));
     };
     $$('[data-ans]', qz).forEach(function (b) {
       b.addEventListener('click', function () { ans = ans.slice(0, qi); ans.push(b.getAttribute('data-ans')); qi++; paint(); });
@@ -154,9 +153,9 @@
     var paintF = function () {
       sets.forEach(function (s, i) { s.hidden = i !== step; });
       bars.forEach(function (b, i) { b.className = i <= step ? 'on' : ''; });
-      sn.textContent = 'Step ' + (step + 1) + ' of 3';
+      sn.textContent = fmt(L.step, { n: step + 1 });
       prev.hidden = step === 0;
-      next.textContent = step === 2 ? 'Request my free consultation' : 'Continue';
+      next.textContent = step === 2 ? L.f_final : L.f_next;
       next.style.opacity = valid() ? 1 : .55;
       err.textContent = '';
     };
@@ -164,22 +163,22 @@
     form.addEventListener('reset-step', function () { step = 0; paintF(); });
     prev.addEventListener('click', function () { step = Math.max(0, step - 1); paintF(); });
     next.addEventListener('click', function () {
-      if (!valid()) { err.textContent = step === 0 ? 'Please choose at least one option.' : 'Please choose where the business is today.'; return; }
+      if (!valid()) { err.textContent = step === 0 ? L.e_need : L.e_stage; return; }
       if (step < 2) { step++; paintF(); return; }
       form.requestSubmit ? form.requestSubmit() : form.submit();
     });
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var name = form.elements.name.value.trim(), phone = form.elements.phone.value;
-      if (!name || phone.replace(/\D/g, '').length < 9) { err.textContent = 'Please add your name and a phone number we can reach.'; return; }
+      if (!name || phone.replace(/\D/g, '').length < 9) { err.textContent = L.e_contact; return; }
       var needs = checked('need'), stage = checked('stage')[0] || '', co = form.elements.company.value.trim(), msg = form.elements.msg.value.trim();
-      var sum = needs.length ? needs.join(', ').toLowerCase() : 'your needs';
-      var text = 'Hi CCM, I’m ' + name + (co ? ' from ' + co : '') + '. Stage: ' + stage + '. I need help with: ' + sum + '.' + (msg ? ' ' + msg : '') + ' (My number: ' + phone + ')';
+      var sum = needs.length ? needs.join(', ').toLowerCase() : L.your_needs;
+      var text = fmt(L.w_hi, { name: name }) + (co ? fmt(L.w_from, { co: co }) : '') + fmt(L.w_stage, { stage: stage, sum: sum }) + (msg ? ' ' + msg : '') + fmt(L.w_phone, { phone: phone });
       $('#thanks-name').textContent = name.split(' ')[0];
       $('#thanks-phone').textContent = phone;
       $('#thanks-need').textContent = sum;
       $('#thanks-wa').href = wa(text);
-      $('#thanks-mail').href = 'mailto:corpsec@ccmsecretarial.com?subject=' + encodeURIComponent('Free consultation enquiry – ' + name) + '&body=' + encodeURIComponent(text);
+      $('#thanks-mail').href = 'mailto:corpsec@ccmsecretarial.com?subject=' + encodeURIComponent(fmt(L.mail_subj, { name: name })) + '&body=' + encodeURIComponent(text);
       form.hidden = true; $('#thanks').hidden = false;
       $('#thanks').scrollIntoView({ block: 'center' });
     });
